@@ -1,6 +1,4 @@
 name: "Python Builder"
-description: "Build single file executable for python"
-author: "Dhruvin Shah"
 run-name: Runnig build by ${{ github.actor }}
 on:
   push:
