@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 pillow = "*"
 cairosvg = "*"
+click = "*"
 
 [dev-packages]
 types-pillow = "*"
