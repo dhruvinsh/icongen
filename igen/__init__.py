@@ -1,5 +1,11 @@
 from .config import Config
-from .image import ImageProcess
+from .image import Image, PngImage, SvgImage, image_processor
 
-__all__ = ["ImageProcess", "Config"]
+__all__ = [
+    "Config",
+    "Image",
+    "PngImage",
+    "SvgImage",
+    "image_processor",
+]
 __version__ = "1.2.0"

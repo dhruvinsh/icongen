@@ -4,8 +4,8 @@ Custom icon resizer for linux icons
 import copy
 import logging
 import shutil
-import sys
 from pathlib import Path
+from typing import Union
 
 from cairosvg import svg2png  # type: ignore
 from PIL import Image as pimage
@@ -15,26 +15,17 @@ from .config import Config
 cfg = Config()
 
 
-class ImageProcess:
+class Image:
     """
-    Image processing class
+    Base image class with common image processing
     """
 
-    def __init__(self, image: Path):
+    def __init__(self, image: Path) -> None:
         self.image = image
         self.logger = logging.getLogger(self.__class__.__name__)
 
-    def convert(self) -> Path:
-        """
-        accept svg file and convert to png file
-        """
-        self.logger.info(f"converting svg image: {self.image}")
-        name = self.image.stem
-        new_path = Path(f"/tmp/{name}.png")
-        svg2png(url=str(self.image), write_to=str(new_path))
-        self.logger.debug(f"converted to png file: {new_path}")
-
-        return new_path
+        if not (self.image.exists() and self.image.is_file()):
+            raise ValueError("Provide image/path is not valid")
 
     def resizer(self) -> None:
         """
@@ -54,27 +45,18 @@ class ImageProcess:
             img_mod.save(filepath, bitmap_format="png")
             self.logger.debug(f"image resize: {size} stored: {filepath}")
 
-    def process(self, chezmoi: bool = False):
+    def process(self, chezmoi: bool = False) -> None:
         """
         work on given image, if svg found convert to png first and then perform the
         resize
 
         :param chezmoi: if chezmoi process is required
         """
-        if not (self.image.exists() and self.image.is_file()):
-            self.logger.error(f"Image file not found: {self.image}")
-            sys.exit(1)
-
-        # svg converter
-        if self.image.name.endswith("svg"):
-            self.logger.debug("SVG image detected")
-            # update image with converted path
-            self.image = self.convert()
-
         self.resizer()
 
         # lets make sure chezmoi is passed and CHEZMOI_ICONS does exists
         if chezmoi and cfg.CHEZMOI_ICONS.is_dir():
+            self.logger.info("working on chezmoi images..")
             for file in cfg.CURRENT_DIR.iterdir():
                 # out of all the files, if the image name match with what passed
                 if self.image.stem in file.name and "___" in file.name:
@@ -84,3 +66,60 @@ class ImageProcess:
                     )
                     shutil.move(file, destination)
         self.logger.info("image processing completed")
+
+
+class SvgImage(Image):
+    """
+    SVG image processing.
+    """
+
+    def __init__(self, image: Path) -> None:
+        super().__init__(image)
+
+    def convert(self) -> Path:
+        """
+        accept svg file and convert to png file
+        """
+        self.logger.info(f"converting svg image: {self.image}")
+        name = self.image.stem
+        new_path = Path(f"/tmp/{name}.png")
+        svg2png(url=str(self.image), write_to=str(new_path))
+        self.logger.debug(f"converted to png file: {new_path}")
+
+        return new_path
+
+    def process(self, chezmoi: bool = False) -> None:
+        """
+        Process an SVG image and perform the convertion and resize
+
+        :param chezmoi: if chezmoi process is required
+        """
+        # convert svg to png
+        self.image = self.convert()
+
+        super().process(chezmoi)
+
+
+class PngImage(Image):
+    """
+    PNG image processing.
+    """
+
+    def __init__(self, image: Path) -> None:
+        super().__init__(image)
+
+
+def image_processor(image_path: Path) -> Union[SvgImage, PngImage]:
+    """
+    Create an instance of SvgImage or PngImage based on the file extension of the image
+    file.
+
+    :param image_path: The path to the image file.
+    :return: An instance of SvgImage or PngImage.
+    """
+    if image_path.suffix.lower() == ".svg":
+        return SvgImage(image_path)
+    elif image_path.suffix.lower() == ".png":
+        return PngImage(image_path)
+    else:
+        raise ValueError(f"Unsupported image format: {image_path.suffix}")

@@ -6,7 +6,7 @@ from pathlib import Path
 
 import click
 
-from . import ImageProcess, __version__
+from . import __version__, image_processor
 
 
 def setup_logging(debug: bool):
@@ -34,5 +34,5 @@ def cli(debug: bool, chezmoi: bool, img: Path):
     process on image and convert to appropriate size for linux maching to use
     """
     setup_logging(debug)
-    ip = ImageProcess(img)
-    ip.process(chezmoi)
+    image = image_processor(img)
+    image.process(chezmoi)
