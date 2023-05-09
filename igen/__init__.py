@@ -8,4 +8,4 @@ __all__ = [
     "SvgImage",
     "image_processor",
 ]
-__version__ = "1.2.0"
+__version__ = "1.4.0"

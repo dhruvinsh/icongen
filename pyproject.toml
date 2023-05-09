@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "icongen"
-version = "1.3.0"
+version = "1.4.0"
 description = "icon generator for linux"
 authors = ["Dhruvin Shah <dhruvin3@gmail.com>"]
 license = "MIT"
