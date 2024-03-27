@@ -1,15 +1,17 @@
 """
 cli generation for the igen
 """
+
 import logging
 from pathlib import Path
+from typing import Optional
 
-import click
+import typer
 
 from . import __version__, image_processor
 
 
-def setup_logging(debug: bool):
+def setup_logging(debug: bool) -> None:
     """
     setup the logging for the ongoing process
     """
@@ -24,15 +26,30 @@ def setup_logging(debug: bool):
     logger.addHandler(stream)
 
 
-@click.command()
-@click.option("--debug", is_flag=True, help="Enable debug messages")
-@click.option("--chezmoi", is_flag=True, help="Copy processed img to chezmoi directory")
-@click.version_option(__version__)
-@click.argument("img", required=True, type=Path)
-def cli(debug: bool, chezmoi: bool, img: Path):
-    """
-    process on image and convert to appropriate size for linux maching to use
-    """
+cli = typer.Typer(name="igen")
+
+
+def version_callback(value: bool) -> None:
+    if value:
+        typer.echo(__version__)
+        raise typer.Exit()
+
+
+@cli.callback()
+def version(
+    _: Optional[bool] = typer.Option(
+        None,
+        "-v",
+        "--version",
+        callback=version_callback,
+        is_eager=True,
+    ),
+): ...
+
+
+@cli.command()
+def image(img: Path, debug: bool = False, chezmoi: bool = False):
+    """Process images and convert."""
     setup_logging(debug)
     image = image_processor(img)
     image.process(chezmoi)

@@ -6,9 +6,7 @@ from pathlib import Path
 
 
 class Config:
-    """
-    config datastore
-    """
+    """Config datastore."""
 
     CURRENT_DIR = Path.cwd()
     HOME = Path.home()

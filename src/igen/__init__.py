@@ -1,4 +1,5 @@
-from .config import Config
+from igen.cfg import Config
+
 from .image import Image, PngImage, SvgImage, image_processor
 
 __all__ = [
@@ -8,4 +9,4 @@ __all__ = [
     "SvgImage",
     "image_processor",
 ]
-__version__ = "1.4.0"
+__version__ = "1.6.0"

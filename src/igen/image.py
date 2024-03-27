@@ -1,18 +1,17 @@
 """
 Custom icon resizer for linux icons
 """
+
 import copy
 import logging
 import shutil
 from pathlib import Path
-from typing import Union
 
-from cairosvg import svg2png  # type: ignore
+from cairosvg import svg2png
 from PIL import Image as pimage
+from typing_extensions import override
 
-from .config import Config
-
-cfg = Config()
+from .cfg import Config
 
 
 class Image:
@@ -36,12 +35,12 @@ class Image:
         """
         img = pimage.open(self.image)
 
-        for size in cfg.SIZES:
+        for size in Config.SIZES:
             cp = copy.deepcopy(img)
             img_mod = cp.resize(size)
             # for unique name resize image has ___
             filename = f"{self.image.stem}___{size[0]}.png"
-            filepath = cfg.CURRENT_DIR / filename
+            filepath = Config.CURRENT_DIR / filename
             img_mod.save(filepath, bitmap_format="png")
             self.logger.debug(f"image resize: {size} stored: {filepath}")
 
@@ -55,14 +54,17 @@ class Image:
         self.resizer()
 
         # lets make sure chezmoi is passed and CHEZMOI_ICONS does exists
-        if chezmoi and cfg.CHEZMOI_ICONS.is_dir():
+        if chezmoi and Config.CHEZMOI_ICONS.is_dir():
             self.logger.info("working on chezmoi images..")
-            for file in cfg.CURRENT_DIR.iterdir():
+            for file in Config.CURRENT_DIR.iterdir():
                 # out of all the files, if the image name match with what passed
                 if self.image.stem in file.name and "___" in file.name:
                     _, size = file.stem.split("___")
                     destination = (
-                        cfg.CHEZMOI_ICONS / f"{size}x{size}" / "apps" / self.image.name
+                        Config.CHEZMOI_ICONS
+                        / f"{size}x{size}"
+                        / "apps"
+                        / self.image.name
                     )
                     shutil.move(file, destination)
         self.logger.info("image processing completed")
@@ -88,9 +90,10 @@ class SvgImage(Image):
 
         return new_path
 
+    @override
     def process(self, chezmoi: bool = False) -> None:
         """
-        Process an SVG image and perform the convertion and resize
+        Process an SVG image and perform the conversion and resize
 
         :param chezmoi: if chezmoi process is required
         """
@@ -109,7 +112,7 @@ class PngImage(Image):
         super().__init__(image)
 
 
-def image_processor(image_path: Path) -> Union[SvgImage, PngImage]:
+def image_processor(image_path: Path) -> SvgImage | PngImage:
     """
     Create an instance of SvgImage or PngImage based on the file extension of the image
     file.
