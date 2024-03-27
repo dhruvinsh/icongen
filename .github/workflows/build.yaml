@@ -1,5 +1,5 @@
 name: "Python Builder"
-run-name: Runnig build by ${{ github.actor }}
+run-name: Running build by ${{ github.actor }}
 on:
   push:
     branches:
