@@ -5,7 +5,7 @@ block_cipher = None
 
 
 a = Analysis(
-    ['igen.py'],
+    ['src/igen/__main__.py'],
     pathex=[],
     binaries=[],
     datas=[],
