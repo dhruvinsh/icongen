@@ -12,10 +12,9 @@ env:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    
     strategy:
       matrix:
+        os: ["macos-latest", "linux-latest", "windows-latest"]
         python-version: ["3.11"]
         include:
           - os: macos-latest
@@ -36,6 +35,8 @@ jobs:
             CMD_BUILD: pyinstaller igen.spec
             OUT_FILE_NAME: igen
             ASSET_MIME: application/x-executable
+            
+    runs-on: ${{ matrix.os }}
             
     steps:
       - name: Checkout repository
