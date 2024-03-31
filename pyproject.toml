@@ -30,3 +30,42 @@ igen = "src.igen.__main__:cli"
 
 [tool.mypy]
 ignore_missing_imports = true
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+exclude = [
+  # virtual environment
+  ".env",
+  ".venv",
+  "env",
+  # cache directories, etc.:
+  ".git",
+  ".mypy_cache",
+  ".pytype",
+]
+
+[tool.ruff.lint]
+select = [
+  "B",   # flake8-bugbear
+  "FA",  # flake8-future-annotations
+  "I",   # isort
+  "RUF", # Ruff-specific and unused-noqa
+  "UP",  # pyupgrade
+  # Flake8 base rules
+  "E", # pycodestyle Error
+  "F", # Pyflakes
+  "W", # pycodestyle Warning
+  # PYI: only enable rules that always autofix, avoids duplicate # noqa with flake8-pyi
+  # See https://github.com/plinss/flake8-noqa/issues/22
+  "PYI009", # use `...`, not `pass`, in empty class bodies
+  "PYI010", # function bodies must be empty
+  "PYI012", # class bodies must not contain `pass`
+  "PYI013", # non-empty class bodies must not contain `...`
+  "PYI016", # duplicate union member
+  "PYI020", # quoted annotations are always unnecessary in stubs
+  "PYI025", # always alias `collections.abc.Set` as `AbstractSet` when importing it
+  "PYI032", # use `object`, not `Any`, as the second parameter to `__eq__`
+  "PYI055", # multiple `type[T]` usages in a union
+  "PYI058", # use `Iterator` as the return type for `__iter__` methods
+]
