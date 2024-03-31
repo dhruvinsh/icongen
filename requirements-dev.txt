@@ -214,9 +214,9 @@ pillow==9.5.0 ; python_version >= "3.11" and python_version < "3.12" \
 pluggy==1.4.0 ; python_version >= "3.11" and python_version < "3.12" \
     --hash=sha256:7db9f7b503d67d1c5b95f59773ebb58a8c1c288129a88665838012cfb07b8981 \
     --hash=sha256:8c85c2876142a764e5b7548e7d9a0e0ddb46f5185161049a79b7e974454223be
-pycparser==2.21 ; python_version >= "3.11" and python_version < "3.12" \
-    --hash=sha256:8ee45429555515e1f6b185e78100aea234072576aa43ab53aefcae078162fca9 \
-    --hash=sha256:e644fdec12f7872f86c58ff790da456218b10f863970249516d60a5eaca77206
+pycparser==2.22 ; python_version >= "3.11" and python_version < "3.12" \
+    --hash=sha256:491c8be9c040f5390f5bf44a5b07752bd07f56edf992381b05c701439eec10f6 \
+    --hash=sha256:c3702b6d3dd8c7abc1afa565d7e63d53a1d0bd86cdc24edd75470f4de499cfcc
 pygments==2.17.2 ; python_version >= "3.11" and python_version < "3.12" \
     --hash=sha256:b27c2826c47d0f3219f29554824c30c5e8945175d888647acd804ddd04af846c \
     --hash=sha256:da46cec9fd2de5be3a8a784f434e4c4ab670b4ff54d605c4c2717e9d49c4c367
@@ -272,9 +272,9 @@ shellingham==1.5.4 ; python_version >= "3.11" and python_version < "3.12" \
 tinycss2==1.2.1 ; python_version >= "3.11" and python_version < "3.12" \
     --hash=sha256:2b80a96d41e7c3914b8cda8bc7f705a4d9c49275616e886103dd839dfc847847 \
     --hash=sha256:8cff3a8f066c2ec677c06dbc7b45619804a6938478d9d73c284b29d14ecb0627
-typer[all]==0.11.0 ; python_version >= "3.11" and python_version < "3.12" \
-    --hash=sha256:049cc47bef39f46b043eddd9165492209fdd9bc7d79afa7ba9cc5cd017caa817 \
-    --hash=sha256:a6ce173c0f03d3a41b49c0a945874cc489e91f88faabf76517b2b91c670fcde7
+typer[all]==0.11.1 ; python_version >= "3.11" and python_version < "3.12" \
+    --hash=sha256:4ce7b2a60b8543816ca97d5ec016026cbe95d1a7a931083b988c1d3682548fe7 \
+    --hash=sha256:f5ae987b97ebbbd59182f8e84407bbc925bc636867fa007bce87a7a71ac81d5c
 types-pillow==9.5.0.6 ; python_version >= "3.11" and python_version < "3.12" \
     --hash=sha256:1d238abaa9d529b04941d805b7f4d3f7df30702bb14521ec507617f117406fb4 \
     --hash=sha256:6a0cad40686e5c35fe7ada70f52bd3970395d31ece33486609e5420e820a9e4e
