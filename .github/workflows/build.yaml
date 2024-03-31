@@ -11,7 +11,7 @@ env:
   dist_file: dist/igen
 
 jobs:
-  build-linux-executable:
+  build:
     runs-on: ${{ matrix.os }}
     
     strategy:
