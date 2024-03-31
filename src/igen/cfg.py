@@ -3,6 +3,7 @@ Config for the icon generator
 """
 
 from pathlib import Path
+from typing import ClassVar
 
 
 class Config:
@@ -21,4 +22,11 @@ class Config:
     )
     # Linux (Mint right now) required size:
     # 256x256, 128x128, 64x64, 48x48, 32x32, 16x16
-    SIZES = [(256, 256), (128, 128), (64, 64), (48, 48), (32, 32), (16, 16)]
+    SIZES: ClassVar[list[tuple[int, int]]] = [
+        (256, 256),
+        (128, 128),
+        (64, 64),
+        (48, 48),
+        (32, 32),
+        (16, 16),
+    ]
