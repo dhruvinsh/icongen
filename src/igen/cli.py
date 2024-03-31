@@ -4,7 +4,6 @@ cli generation for the igen
 
 import logging
 from pathlib import Path
-from typing import Optional
 
 import typer
 
@@ -37,7 +36,7 @@ def version_callback(value: bool) -> None:
 
 @cli.callback()
 def version(
-    _: Optional[bool] = typer.Option(
+    _: bool | None = typer.Option(
         None,
         "-v",
         "--version",
