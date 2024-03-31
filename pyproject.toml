@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "igen"
-version = "1.6.0"
+version = "1.7.0"
 description = "icon generator for linux"
 authors = ["Dhruvin Shah <dhruvin3@gmail.com>"]
 license = "AGPL"
