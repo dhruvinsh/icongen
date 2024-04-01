@@ -11,7 +11,7 @@ from cairosvg import svg2png
 from PIL import Image as pimage
 from typing_extensions import override
 
-from .cfg import Config
+from igen.cfg import Config
 
 
 class Image:

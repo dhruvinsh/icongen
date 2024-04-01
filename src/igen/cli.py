@@ -8,7 +8,7 @@ from typing import Optional
 
 import typer
 
-from . import __version__, image_processor
+from igen import __version__, image_processor
 
 
 def setup_logging(debug: bool) -> None:

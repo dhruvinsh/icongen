@@ -1,6 +1,5 @@
 from igen.cfg import Config
-
-from .image import Image, PngImage, SvgImage, image_processor
+from igen.image import Image, PngImage, SvgImage, image_processor
 
 __all__ = [
     "Config",
