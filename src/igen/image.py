@@ -120,6 +120,9 @@ def image_processor(image_path: Path) -> SvgImage | PngImage:
     :param image_path: The path to the image file.
     :return: An instance of SvgImage or PngImage.
     """
+    if not image_path.exists():
+        raise FileNotFoundError(f"Image file not found: {image_path}")
+
     if image_path.suffix.lower() == ".svg":
         return SvgImage(image_path)
     elif image_path.suffix.lower() == ".png":
